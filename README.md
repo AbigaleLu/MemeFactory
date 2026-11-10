@@ -6,6 +6,10 @@ CodeLab 第 **20** 号独立项目。把表情素材处理成更容易使用和�
 
 ## 手机浏览器版
 
+网页：**[MemeFactory · 表情工厂](https://abigalelu.github.io/MemeFactory/)**
+
+仓库：[AbigaleLu/MemeFactory](https://github.com/AbigaleLu/MemeFactory)
+
 使用 GitHub Pages 页面，可在 Safari／Chrome 打开。选择照片或视频，调整参数后处理，再下载到「文件」；支持的设备还可调用系统分享，或打开结果后长按保存。
 
 - 三个功能均在浏览器执行，不需要电脑保持开机。

@@ -13,7 +13,9 @@
 - 新增浏览器算法／发布测试 **10/10 通过**，覆盖内部白色、透明度、缩放、GIF 实际解码／体积／时长／循环、子路径资源及禁止网络处理。
 - 390px 浏览器去白成功，输出 720×720 透明 PNG，无横向溢出；真实 iPhone／Android 设备尚未人工验收。
 - 纯浏览器 MP4 读取／采样／Worker 编码成功：100 KB 目标，输出约 88.8 KB／208×117／27 帧／完整 3 秒循环 GIF，控制台无错误。
-- GitHub 仓库与 Pages 发布状态待最终回执更新。
+- 320px／390px 浏览器检查无横向溢出；图片缩小输出 240×240／约 3.5 KB WebP。
+- 仓库：`https://github.com/AbigaleLu/MemeFactory`；GitHub 私有仓库 Pages 套餐限制后，用户明确同意仅将此仓库公开。Pages 来源为 `main /docs`，网页 `https://abigalelu.github.io/MemeFactory/`；GitHub 回执为 built、HTTPS 强制开启。
+- 线上页面已在 390px 浏览器实际打开并完成示例去白、透明 PNG 预览与保存入口核对，Worker 在 GitHub Pages 子路径正常加载，无需本机服务。截图：`output/MemeFactory-mobile.jpg`。真实手机的相册／文件分享行为尚待用户真机验收。
 
 ## 定位与决策
 

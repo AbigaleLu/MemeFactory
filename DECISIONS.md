@@ -10,3 +10,4 @@
 - 为控制手机内存，GIF 最多保留 120 个采样帧、合计 1200 万像素，保留片段时长；最终编码仍按实际字节数严格验证。
 - 手机提供下载、可用时的原生文件分享，以及打开结果长按保存。浏览器视频兼容性与系统保存行为不等同于真实手机已验收。
 - 仅在本产品独立仓库发布，不带入其他 CodeLab 产品、真实素材、临时下载、环境或凭证。仓库默认私有；不因 Pages 发布需要擅自改为公开。
+- 发布阶段 GitHub 返回 HTTP 422：当前套餐不支持私有仓库 Pages。用户随后明确选择「公开 MemeFactory 仓库并发布 GitHub Pages」，因此仅将 `AbigaleLu/MemeFactory` 设为公开，Pages 来源为 `main /docs`。网页地址由 GitHub 返回：`https://abigalelu.github.io/MemeFactory/`。
