@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f8f4">
+  <meta name="description" content="手机也能用的表情工厂：去白底、视频转 500 KB 以内 GIF、图片缩放压缩。素材只在当前设备处理。">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; worker-src 'self'; style-src 'self'; img-src 'self' blob: data:; media-src 'self' blob:; connect-src 'none'; object-src 'none'; base-uri 'self'">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>MemeFactory · 表情工厂</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
+  <script src="./app.js" type="module"></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="./" aria-label="MemeFactory 首页"><span class="brand-symbol" aria-hidden="true">m<span>✳</span></span><span>MemeFactory<small>表情工厂</small></span></a>
+    <div class="nav-caption">你的创作工具箱</div>
+    <nav aria-label="处理工具">
+      <button class="tool active" data-tool="white" aria-current="page"><span class="tool-icon">✳</span><span>去除白底<small>给表情一个透明底</small></span><span class="tool-arrow">↗</span></button>
+      <button class="tool" data-tool="gif"><span class="tool-icon">▷</span><span>视频转 GIF<small>动起来，轻一点</small></span><span class="tool-arrow">↗</span></button>
+      <button class="tool" data-tool="resize"><span class="tool-icon">↙</span><span>图片瘦身<small>缩尺寸，也缩体积</small></span><span class="tool-arrow">↗</span></button>
+    </nav>
+    <div class="sidebar-note"><span class="tiny-label">MADE FOR YOUR MEMES</span><p>好玩的灵感，<br>不该被文件大小拦住。</p><span class="note-star" aria-hidden="true">✳</span></div>
+    <div class="local-status"><span class="status-dot"></span> 素材只在当前设备处理 <span class="version">v0.2</span></div>
+  </aside>
+
+  <main>
+    <header class="topbar"><span>工作台 <span class="slash">/</span> <span id="breadcrumb">去除白底</span></span><span class="project-tag">PROJECT 20 <span>↗</span></span></header>
+    <section class="page-heading"><div><div class="eyebrow">A LITTLE LESS WEIGHT. A LOT MORE MEME.</div><h1 id="heading">给表情留一点自由<span>。</span></h1><p id="subtitle">轻轻拿掉白色背景，让表情出现在任何地方。</p></div><div class="heading-stamp" aria-hidden="true"><span>MAKE IT</span><strong>meme.</strong></div></section>
+
+    <div id="connection-error" class="notice error" hidden>浏览器处理模块无法启动，请用最新版 Safari 或 Chrome 重新打开页面。</div>
+    <div class="mobile-intro"><span class="status-dot"></span> 在手机里处理，素材不上传 <span>无需安装</span></div>
+    <section class="workspace" aria-label="素材处理工作台">
+      <div class="preview-column">
+        <div class="section-top"><h2><span class="step">01</span> 素材工作区</h2><div id="source-actions" hidden><button id="replace" class="text-button">更换素材 ↗</button></div><span id="empty-label" class="muted small">拖进来，剩下的交给我们</span></div>
+        <input id="file-input" type="file" accept="image/png,image/jpeg,image/webp,image/bmp" hidden>
+        <div id="dropzone" class="dropzone" role="button" tabindex="0" aria-label="选择或拖入素材">
+          <div class="upload-art" aria-hidden="true"><div class="art-back">.png</div><div class="art-front"><span>↥</span><i></i><b>m.</b></div><span class="art-spark">✳</span></div>
+          <h3 id="drop-title">把你的表情拖到这里</h3><p id="drop-hint">PNG、JPG、WebP 等静态图片 · 最大 150 MB</p>
+          <button id="choose" class="button dark" tabindex="-1">选择一份素材 <span>＋</span></button>
+          <span class="drop-footnote">或直接拖放文件</span>
+        </div>
+        <div id="comparison" hidden>
+          <div class="file-line"><span class="file-dot"></span><strong id="filename"></strong><span id="source-details" class="muted small"></span></div>
+          <div class="preview-toolbar"><span class="tiny-label">BEFORE & AFTER</span><div class="background-options" aria-label="预览背景"><button class="swatch checker selected" data-background="checker" aria-label="透明棋盘背景" aria-pressed="true"></button><button class="swatch white" data-background="white" aria-label="白色背景" aria-pressed="false"></button><button class="swatch dark-bg" data-background="dark-bg" aria-label="深色背景" aria-pressed="false"></button></div></div>
+          <div class="compare-grid"><figure><figcaption><span>原始素材</span><span id="original-size"></span></figcaption><div id="original-pane" class="media-pane checker"></div></figure><figure><figcaption><span>处理结果</span><span id="result-badge" class="result-badge" hidden>READY</span></figcaption><div id="result-pane" class="media-pane checker"><div class="result-placeholder"><span>✳</span><p>你的下一个表情，<br>即将在这里诞生。</p></div></div></figure></div>
+          <div id="result-stats" class="result-stats" hidden><div><span>输出体积</span><strong id="output-size"></strong></div><div><span>画面尺寸</span><strong id="output-dimensions"></strong></div><div><span id="third-stat-label">体积变化</span><strong id="third-stat"></strong></div></div>
+        </div>
+        <div class="workspace-footer"><span id="workspace-tip">✳ 透明区域会以棋盘格显示，下载后是真正的透明背景。</span><button id="sample" class="text-button">用示例试一试 ↗</button></div>
+      </div>
+
+      <aside class="settings-column" aria-label="导出设置"><div class="section-top"><h2><span class="step">02</span> 调整一下</h2><button id="reset" class="text-button small">重置</button></div>
+        <form id="settings-form">
+          <div id="white-settings" class="setting-group">
+            <label class="field-label" for="scope">去除范围</label><select id="scope"><option value="edges">边缘相连的白底（推荐）</option><option value="all">全图所有白色</option></select><p class="field-help">边缘模式保留被轮廓包围的白色，例如眼睛和文字内部。</p>
+            <div class="range-label"><label class="field-label" for="threshold">白色阈值</label><output id="threshold-value">245</output></div><input id="threshold" type="range" min="200" max="255" value="245"><div class="range-endpoints"><span>覆盖更多浅色</span><span>只去纯白</span></div>
+            <div class="range-label"><label class="field-label" for="softness">边缘柔化</label><output id="softness-value">20</output></div><input id="softness" type="range" min="0" max="60" value="20"><p class="field-help">轻柔处理边缘，并减少放到深色背景后的白边。</p>
+            <div class="format-summary"><span>输出格式</span><strong>PNG <span class="pill">透明</span></strong></div>
+          </div>
+          <div id="gif-settings" class="setting-group" hidden>
+            <div class="field-row"><div><label class="field-label" for="start">开始时间 / 秒</label><input id="start" type="number" min="0" step="0.1" value="0"></div><div><label class="field-label" for="duration">片段时长 / 秒</label><input id="duration" type="number" min="0.1" max="15" step="0.1" value="3"></div></div><p id="clip-help" class="field-help">选择最多 15 秒的精彩片段。</p>
+            <label class="field-label" for="gif-width">期望最长边</label><select id="gif-width"><option value="240">240 px · 轻巧</option><option value="320" selected>320 px · 推荐</option><option value="480">480 px · 清晰</option><option value="640">640 px · 更大画面</option></select>
+            <label class="field-label" for="fps">期望帧率</label><select id="fps"><option value="8">8 fps</option><option value="12" selected>12 fps · 推荐</option><option value="16">16 fps</option><option value="20">20 fps</option><option value="24">24 fps</option></select>
+            <label class="field-label" for="gif-budget">体积上限</label><select id="gif-budget"><option value="500">小于 500 KB</option><option value="300">小于 300 KB</option><option value="200">小于 200 KB</option><option value="100">小于 100 KB</option></select>
+            <div class="setting-note"><span>↘</span><p>若超出体积，自动降低尺寸、帧率和色数。手机端最多采样 120 帧，保留所选时长；建议从 3 秒片段开始。</p></div>
+          </div>
+          <div id="resize-settings" class="setting-group" hidden>
+            <label class="field-label" for="max-edge">最长边尺寸</label><select id="max-edge"><option value="128">128 px · 小头像</option><option value="240">240 px · 表情</option><option value="512" selected>512 px · 通用</option><option value="1024">1024 px · 清晰</option><option value="2048">2048 px · 大图</option></select><p class="field-help">保持原始比例，小图不会被放大。</p>
+            <label class="field-label" for="image-format">输出格式</label><select id="image-format"><option value="webp">WebP · 体积小，支持透明</option><option value="png">PNG · 支持透明</option><option value="jpeg">JPG · 适合照片，白色底</option></select>
+            <label class="field-label" for="image-budget">体积上限</label><select id="image-budget"><option value="100">小于 100 KB</option><option value="200">小于 200 KB</option><option value="500" selected>小于 500 KB</option><option value="1000">小于 1 MB</option></select>
+            <div class="setting-note"><span>↙</span><p>先缩尺寸，再优化质量。PNG 超标时继续等比缩小，实际结果会显示在左侧。</p></div>
+          </div>
+        </form>
+        <div class="process-area"><div id="progress-area" hidden><div class="progress-track"><progress id="progress" max="100" value="0"></progress></div><p id="progress-message" role="status"></p><button id="cancel" class="text-button">取消处理</button></div><button id="process" class="button lime" disabled><span id="process-label">开始去白底</span><span>↗</span></button><a id="download" class="button dark" hidden download><span>下载结果</span><span>↓</span></a><button id="share" class="button secondary" hidden><span>分享或保存到手机</span><span>↑</span></button><a id="open-result" class="text-button open-result" hidden target="_blank" rel="noopener">打开结果，长按保存 ↗</a><p id="action-help">先放入一份素材，让灵感开工。</p></div>
+      </aside>
+    </section>
+    <div id="message" class="notice" role="status" aria-live="polite" hidden></div>
+    <footer class="page-footer"><span><span class="status-dot"></span> 设备内处理 · 素材不上传 · 保留原文件</span><a href="./THIRD_PARTY_LICENSES.txt">开源依赖许可 ↗</a></footer>
+  </main>
+</body>
+</html>
